@@ -20,10 +20,11 @@ app.get('/api/bug', (req, res) => {
 
 //* SAVE
 app.get('/api/bug/save', (req, res) => {
+    console.log('req', req);
     const bugToSave = {
         _id: req.query._id,
         title: req.query.title,
-        description: +req.query.description,
+        description: req.query.description,
         severity: +req.query.severity,
         createdAt: +req.query.createdAt,
     }
