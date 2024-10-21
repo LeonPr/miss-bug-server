@@ -1,4 +1,5 @@
 import express from 'express' 
+import cookieParser from 'cookie-parser'
 import { bugService } from './services/bug.service.js'
 
 
@@ -6,6 +7,7 @@ import { bugService } from './services/bug.service.js'
 const app = express() 
 // app.get('/', (req, res) => res.send('Hello there'))
 app.use(express.static('public'))
+app.use(cookieParser())
 
 //* Express Routing:
 //* READ LIST
@@ -39,6 +41,19 @@ app.get('/api/bug/save', (req, res) => {
 
 //* READ
 app.get('/api/bug/:bugId', (req, res) => {
+    let visitedBugsCount = parseInt(req.cookies.visitedCount) || 0
+    const lastVisitTime = parseInt(req.cookies.lastVisitTime) || 0
+    const currentTime = Date.now()
+    if (visitedBugsCount >= 3) {
+        if (currentTime - lastVisitTime < 15000) {
+            return res.status(429).send('Too many requests. Please wait a while before accessing bug details again.')
+        }
+    }
+    visitedBugsCount++;
+    res.cookie('visitedCount', visitedBugsCount, { maxAge: 15 * 1000 });
+    res.cookie('lastVisitTime', currentTime, { maxAge: 15 * 1000 });
+    console.log('visitedCount:', visitedBugsCount)
+
     const { bugId } = req.params
     bugService.getById(bugId)
         .then(bug => res.send(bug))

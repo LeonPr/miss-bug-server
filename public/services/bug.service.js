@@ -13,7 +13,6 @@ export const bugService = {
     remove,
 }
 
-
 function query() {
     // return storageService.query(STORAGE_KEY)
     return axios.get(BASE_URL).then(res=>res.data)

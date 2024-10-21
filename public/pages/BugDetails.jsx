@@ -1,5 +1,5 @@
 const { useState, useEffect } = React
-const { Link, useParams } = ReactRouterDOM
+const { Link, useParams , useNavigate } = ReactRouterDOM
 
 import { bugService } from '../services/bug.service.js'
 import { showErrorMsg } from '../services/event-bus.service.js'
@@ -9,18 +9,39 @@ export function BugDetails() {
 
     const [bug, setBug] = useState(null)
     const { bugId } = useParams()
+    const navigate = useNavigate()
+
+    // useEffect(() => {
+    //     bugService.getById(bugId)
+    //         .then(bug => {
+    //             setBug(bug)
+    //         })
+    //         .catch(err => {
+    //             showErrorMsg('Cannot load bug')
+    //         })
+    // }, [])
 
     useEffect(() => {
-        bugService.getById(bugId)
-            .then(bug => {
-                setBug(bug)
-            })
-            .catch(err => {
-                showErrorMsg('Cannot load bug')
-            })
-    }, [])
+        const fetchBug = async () => {
+            try {
+                const bugData = await bugService.getById(bugId)
+                setBug(bugData);
+            } catch (err) {
+                if (err.response && err.response.status === 429) {
+                    showErrorMsg('Too many requests. Please wait before trying again.')
+                    setTimeout(() => {
+                        navigate('/bug')
+                    }, 3000)
+                } else {
+                    showErrorMsg('Cannot load bug')
+                }
+            }
+        };
 
-    if (!bug) return <h1>loadings....</h1>
+        fetchBug();
+    }, [bugId]);
+
+    if (!bug) return <h1>Loadings....</h1>
     return bug && <div>
         <h3>Bug Details 🐛</h3>
         <h4>{bug.title}</h4>
