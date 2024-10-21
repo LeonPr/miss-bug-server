@@ -1,0 +1,37 @@
+[
+    {
+        "_id": "1NF1N1T3",
+        "title": "Kissing Bug",
+        "description" : "This bug is found widespread in the Americas and can carry Chagas Disease",
+        "severity": 4,
+        "createdAt" : 1542107359454
+    },
+    {
+        "_id": "K3YB0RD",
+        "title": "Tsetse Fly",
+        "description" : "When bitten by the Sub-Saharan nations' tsetse fly, a parasite carried by this insect travels into the human body",
+        "severity": 5,
+        "createdAt" : 1542107359454
+    },
+    {
+        "_id": "C0FF33",
+        "title": "Bullet ants",
+        "description" : "The bullet ant is known to have the most painful sting of any insect",
+        "severity": 2,
+        "createdAt" : 1542107359454
+    },
+    {
+        "_id": "G0053",
+        "title": "Brown recluse",
+        "description" : "While the brown recluse is not known to be aggressive, their bites can become swollen, red and last for about three weeks",
+        "severity": 1,
+        "createdAt" : 1542107359454
+    },
+    {
+        "_id": "C0FF53",
+        "title": "Deer tick",
+        "description" : "This tiny insect can carry Lyme disease, and once infected, a person can exhibit symptoms such as a rash and fever",
+        "severity": 2,
+        "createdAt" : 1542107359454
+    }
+]

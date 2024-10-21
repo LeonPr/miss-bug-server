@@ -1,0 +1,16 @@
+{
+  "name": "miss-bug-server",
+  "version": "1.0.0",
+  "description": "MissBugServer",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Leonid Pri-Mor",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.1"
+  }
+}
