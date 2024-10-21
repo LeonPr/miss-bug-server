@@ -4,8 +4,8 @@ import { bugService } from './services/bug.service.js'
 
 
 const app = express() 
-app.get('/', (req, res) => res.send('Hello there'))
-
+// app.get('/', (req, res) => res.send('Hello there'))
+app.use(express.static('public'))
 
 //* Express Routing:
 //* READ LIST
