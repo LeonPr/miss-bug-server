@@ -9,8 +9,7 @@ const app = express()
 app.use(express.static('public'))
 app.use(cookieParser())
 
-//* Express Routing:
-//* READ LIST
+
 app.get('/api/bug', (req, res) => {
     bugService.query()
         .then(bugs => res.send(bugs))
@@ -20,7 +19,6 @@ app.get('/api/bug', (req, res) => {
         })
 })
 
-//* SAVE
 app.get('/api/bug/save', (req, res) => {
     console.log('req', req);
     const bugToSave = {
@@ -39,7 +37,7 @@ app.get('/api/bug/save', (req, res) => {
         })
 })
 
-//* READ
+
 app.get('/api/bug/:bugId', (req, res) => {
     let visitedBugsCount = parseInt(req.cookies.visitedCount) || 0
     const lastVisitTime = parseInt(req.cookies.lastVisitTime) || 0
@@ -50,8 +48,8 @@ app.get('/api/bug/:bugId', (req, res) => {
         }
     }
     visitedBugsCount++;
-    res.cookie('visitedCount', visitedBugsCount, { maxAge: 15 * 1000 });
-    res.cookie('lastVisitTime', currentTime, { maxAge: 15 * 1000 });
+    res.cookie('visitedCount', visitedBugsCount, { maxAge: 15 * 1000 })
+    res.cookie('lastVisitTime', currentTime, { maxAge: 15 * 1000 })
     console.log('visitedCount:', visitedBugsCount)
 
     const { bugId } = req.params
@@ -63,8 +61,6 @@ app.get('/api/bug/:bugId', (req, res) => {
         })
 })
 
-
-//* REMOVE
 app.get('/api/bug/:bugId/remove', (req, res) => {
     const { bugId } = req.params
     bugService.remove(bugId)
@@ -74,8 +70,5 @@ app.get('/api/bug/:bugId/remove', (req, res) => {
             res.status(500).send('Cannot remove bug')
         })
 })
-
-
-
 
 app.listen(3040, () => console.log('Server ready at port 3040'))
