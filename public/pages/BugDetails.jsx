@@ -11,21 +11,12 @@ export function BugDetails() {
     const { bugId } = useParams()
     const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     bugService.getById(bugId)
-    //         .then(bug => {
-    //             setBug(bug)
-    //         })
-    //         .catch(err => {
-    //             showErrorMsg('Cannot load bug')
-    //         })
-    // }, [])
 
     useEffect(() => {
         const fetchBug = async () => {
             try {
                 const bugData = await bugService.getById(bugId)
-                setBug(bugData);
+                setBug(bugData)
             } catch (err) {
                 if (err.response && err.response.status === 429) {
                     showErrorMsg('Too many requests. Please wait before trying again.')
@@ -36,10 +27,10 @@ export function BugDetails() {
                     showErrorMsg('Cannot load bug')
                 }
             }
-        };
+        }
 
-        fetchBug();
-    }, [bugId]);
+        fetchBug()
+    }, [bugId])
 
     if (!bug) return <h1>Loadings....</h1>
     return bug && <div>
