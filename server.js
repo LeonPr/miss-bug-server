@@ -20,7 +20,7 @@ app.get('/api/bug', (req, res) => {
 
 app.post('/api/bug', (req, res) => {
     const bugToSave = {
-        title: req.query.title,
+        title: req.body.title,
         description: req.body.description,
         severity: +req.body.severity,
         createdAt: +req.body.createdAt,
@@ -34,6 +34,7 @@ app.post('/api/bug', (req, res) => {
         })
 })
 app.put('/api/bug', (req, res) => {
+    console.log('req.body._id', req.body._id)
     const bugToSave = {
         _id: req.body._id,
         title: req.body.title,
@@ -72,25 +73,13 @@ app.get('/api/bug/:bugId', (req, res) => {
             res.status(500).send('Cannot get bug')
         })
 })
-
-app.delete('/api/bud/:bugId', (req, res) => {
-    const bugId = req.params._id
+app.delete('/api/bug/:bugId', (req, res) => {
+    const bugId = req.params.bugId
     bugService.remove(bugId)
         .then(() => res.send(bugId))
         .catch(err => {
             loggerService.error('Cannot remove bug', err)
-            res.status(500).send('Cannot remove bug')
-        })
-})
-
-
-app.get('/api/bug/:bugId/remove', (req, res) => {
-    const { bugId } = req.params
-    bugService.remove(bugId)
-        .then(() => res.send(`bug ${bugId} removed successfully!`))
-        .catch(err => {
-            loggerService.error('Cannot remove bug', err)
-            res.status(500).send('Cannot remove bug')
+            res.status(400).send('Cannot remove bug')
         })
 })
 
