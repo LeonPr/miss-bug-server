@@ -5,14 +5,17 @@ import { BugList } from '../cmps/BugList.jsx'
 const { useState, useEffect } = React
 
 export function BugIndex() {
-    const [bugs, setBugs] = useState(null)
+    const [bugs, setBugs] = useState([])
+    const [filterBy, setFilterBy] = useState({ txt: '' })
+    const [filterByLabels, setFilterByLabels] = useState({ txt: '' })
+    const [sortBy, setSortBy] = useState('date')
 
     useEffect(() => {
         loadBugs()
-    }, [])
+    }, [filterBy,filterByLabels, sortBy])
 
     function loadBugs() {
-        bugService.query().then(setBugs)
+        bugService.query(filterBy,filterByLabels, sortBy).then(setBugs)
     }
 
     function onRemoveBug(bugId) {
@@ -68,8 +71,35 @@ export function BugIndex() {
             })
     }
 
+    function handleChange({ target }) {
+        setFilterBy({ txt: target.value })
+    }
+    function handleLabels({ target }) {
+        setFilterByLabels({ txt: target.value })
+    }
+
     return (
         <main>
+            <section className='bug-filter'>
+                <input onChange={handleChange}
+                    className="filter-title"
+                    type="text"
+                    placeholder="Filter by Title or Description"
+                />
+                <input onChange={handleLabels}
+                    className="filter-labels"
+                    type="text"
+                    placeholder="Filter by Labels"
+                />
+                <label className="bug-sort">
+                    Sort by:
+                    <select onChange={(e) => setSortBy(e.target.value)} className="sort-select">
+                        <option value="title">Title</option>
+                        <option value="severity">Severity</option>
+                        <option value="createdAt">Date</option>
+                    </select>
+                </label>
+            </section>
             <section className='info-actions'>
                 <h3>Bugs App</h3>
                 <button onClick={onAddBug}>Add Bug ⛐</button>

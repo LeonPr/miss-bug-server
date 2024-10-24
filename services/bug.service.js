@@ -10,7 +10,7 @@ export const bugService = {
     save
 }
 
-function query() {
+function query(filters,filterByLabels, sortBy) {
     return Promise.resolve(bugs)
 }
 
@@ -35,7 +35,6 @@ function save(bugToSave) {
         bugToSave._id = utilService.makeId()
         bugs.unshift(bugToSave)
     }
-
     return _saveBugsToFile().then(() => bugToSave)
 }
 

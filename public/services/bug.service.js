@@ -13,37 +13,39 @@ export const bugService = {
     remove,
 }
 
-function query() {
-    // return storageService.query(STORAGE_KEY)
-    return axios.get(BASE_URL).then(res=>res.data)
+function query(filters,filterByLabels, sortBy) {
+    //  return axios.get(BASE_URL).then(res => res.data)
+    return axios.get(BASE_URL).then(res=>{
+        let data=res.data
+        if(filters.txt){
+            data=data.filter(bug=> bug.title.includes(filters.txt) || bug.description.includes(filters.txt))
+        }
+        if (filterByLabels.txt) {
+            data = data.filter(bug => 
+                bug.labels.some(label => label.includes(filterByLabels.txt)) 
+            );
+        } 
+
+        return data
+    })
 }
+
 function getById(bugId) {
-    // return storageService.get(STORAGE_KEY, bugId)
-    return axios.get(BASE_URL+bugId).then(res=>res.data)
+     return axios.get(BASE_URL + bugId).then(res => res.data)
 }
 
 function remove(bugId) {
-    // return storageService.remove(STORAGE_KEY, bugId)
-    return axios.get(BASE_URL + bugId +'/remove')
+    return axios.delete(BASE_URL + bugId).then(res => res.data)
 }
 
 function save(bug) {
-    const url = BASE_URL + 'save'
-    let queryParams =`?title=${bug.title}&description=${bug.description}&severity=${bug.severity}&createdAt=${bug.createdAt}`
-    // let queryParams = `?vendor=${car.vendor}&speed=${car.speed}`
-    if (bug._id) queryParams += `&_id=${bug._id}`
-    return axios.get(url + queryParams).then(res => res.data)
-
-    // if (bug._id) {
-    //     return storageService.put(STORAGE_KEY, bug)
-    // } else {
-    //     return storageService.post(STORAGE_KEY, bug)
-    // }
-
+    const url = BASE_URL
+    if (bug._id) {
+        return axios.put(BASE_URL, bug).then(res => res.data)
+    } else {
+        return axios.post(BASE_URL, bug).then(res => res.data)
+    }
 }
-
-
-
 
 function _createBugs() {
     let bugs = utilService.loadFromStorage(STORAGE_KEY)
@@ -72,7 +74,4 @@ function _createBugs() {
         ]
         utilService.saveToStorage(STORAGE_KEY, bugs)
     }
-
-
-
 }
