@@ -10,8 +10,29 @@ export const bugService = {
     save
 }
 
-function query(filters,filterByLabels, sortBy) {
-    return Promise.resolve(bugs)
+function query(filterBy) {
+    return Promise.resolve(bugs).then(res => {
+        let data = res
+        console.log('filterBy', filterBy);
+        if (filterBy.txt) {
+            data = data.filter(bug => bug.title.toLowerCase().includes(filterBy.txt) || bug.description.toLowerCase().includes(filterBy.txt))
+        }
+        if (filterBy.txtLabels) {
+            data = data.filter(bug =>
+                bug.labels.some(label => label.toLowerCase().includes(filterBy.txtLabels))
+            )
+        }
+        if (filterBy.sortBy) {
+            if (filterBy.sortBy === 'date') {
+                data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            } else if (filterBy.sortBy === 'title') {
+                data.sort((a, b) => a.title.localeCompare(b.title))
+            } else if (filterBy.sortBy === 'severity') {
+                data.sort((a, b) => a.severity - b.severity)
+            }
+        }
+        return data
+    })
 }
 
 function getById(bugId) {

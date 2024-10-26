@@ -7,7 +7,7 @@ const { useState, useEffect } = React
 export function BugIndex() {
     const [bugs, setBugs] = useState([])
     const [filterBy, setFilterBy] = useState({ txt: '' })
-    const [filterByLabels, setFilterByLabels] = useState({ txt: '' })
+    const [filterByLabels, setFilterByLabels] = useState({ txtLabels: '' })
     const [sortBy, setSortBy] = useState('date')
 
     useEffect(() => {
@@ -75,7 +75,7 @@ export function BugIndex() {
         setFilterBy({ txt: target.value })
     }
     function handleLabels({ target }) {
-        setFilterByLabels({ txt: target.value })
+        setFilterByLabels({ txtLabels: target.value })
     }
 
     return (

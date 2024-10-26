@@ -15,27 +15,33 @@ export const bugService = {
 
 function query(filters, filterByLabels, sortBy) {
     //  return axios.get(BASE_URL).then(res => res.data)
-    return axios.get(BASE_URL).then(res => {
-        let data = res.data
-        if (filters.txt) {
-            data = data.filter(bug => bug.title.includes(filters.txt) || bug.description.includes(filters.txt))
-        }
-        if (filterByLabels.txt) {
-            data = data.filter(bug =>
-                bug.labels.some(label => label.includes(filterByLabels.txt))
-            )
-        }
-        if (sortBy) {
-            if (sortBy === 'date') {
-                data.sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt))
-            } else if (sortBy === 'title') {
-                data.sort((a, b) => a.title.localeCompare(b.title))
-            }else if (sortBy === 'severity') {
-                data.sort((a, b) => a.severity -b.severity)
-            }
-        }
-        return data
-    })
+    const params={
+        ...filters,
+        ...filterByLabels,
+        sortBy
+    }
+    return axios.get(BASE_URL,{params}).then(res => res.data)
+    // return axios.get(BASE_URL,{params:filters,filterByLabels,sortBy}).then(res => {
+    //     let data = res.data
+    //     if (filters.txt) {
+    //         data = data.filter(bug => bug.title.includes(filters.txt) || bug.description.includes(filters.txt))
+    //     }
+    //     if (filterByLabels.txtLabels) {
+    //         data = data.filter(bug =>
+    //             bug.labels.some(label => label.includes(filterByLabels.txtLabels))
+    //         )
+    //     }
+    //     if (sortBy) {
+    //         if (sortBy === 'date') {
+    //             data.sort((a,b)=> new Date(b.createdAt) - new Date(a.createdAt))
+    //         } else if (sortBy === 'title') {
+    //             data.sort((a, b) => a.title.localeCompare(b.title))
+    //         }else if (sortBy === 'severity') {
+    //             data.sort((a, b) => a.severity -b.severity)
+    //         }
+    //     }
+    //     return data
+    // })
 }
 
 function getById(bugId) {

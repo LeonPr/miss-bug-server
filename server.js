@@ -10,7 +10,14 @@ app.use(express.json())
 
 
 app.get('/api/bug', (req, res) => {
-    bugService.query()
+    console.log('Received request:', req.query)
+    const {txt="",txtLabels="",sortBy=""} =req.query
+    const filterBy={
+        txt,
+        txtLabels,
+        sortBy
+    }
+    bugService.query(filterBy)
         .then(bugs => res.send(bugs))
         .catch(err => {
             loggerService.error('Cannot get bugs', err)
