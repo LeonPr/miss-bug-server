@@ -1,8 +1,12 @@
 import { bugService } from '../services/bug.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
+import { utilService } from '../services/util.service.js'
 
-const { useState, useEffect } = React
+
+
+
+const { useState, useEffect, useRef } = React
 
 export function BugIndex() {
     const [bugs, setBugs] = useState([])
@@ -10,9 +14,27 @@ export function BugIndex() {
     const [filterByLabels, setFilterByLabels] = useState({ txtLabels: '' })
     const [sortBy, setSortBy] = useState('date')
 
+    const debouncedFilterByRef = useRef()
+    const debouncedFilterByLabelsRef = useRef()
+
     useEffect(() => {
         loadBugs()
     }, [filterBy, filterByLabels, sortBy])
+
+    // const debouncedFilterBy = useRef(utilService.debounce(setFilterBy, 500))
+    // const debouncedFilterByLabel = useRef(utilService.debounce(setFilterByLabels, 500))
+
+    useEffect(() => {
+        // Create the debounced function for filterBy
+        debouncedFilterByRef.current = utilService.debounce((value) => {
+            setFilterBy({ txt: value });
+        }, 500);
+        
+        // Create the debounced function for filterByLabels
+        debouncedFilterByLabelsRef.current = utilService.debounce((value) => {
+            setFilterByLabels({ txtLabels: value });
+        }, 500);
+    }, [])
 
     function loadBugs() {
         bugService.query(filterBy, filterByLabels, sortBy).then(setBugs)
@@ -72,10 +94,12 @@ export function BugIndex() {
     }
 
     function handleChange({ target }) {
-        setFilterBy({ txt: target.value })
+        debouncedFilterByRef.current(target.value)
+        // setFilterBy({ txt: target.value })
     }
     function handleLabels({ target }) {
-        setFilterByLabels({ txtLabels: target.value })
+        debouncedFilterByLabelsRef.current(target.value)
+        // setFilterByLabels({ txtLabels: target.value })
     }
 
     return (

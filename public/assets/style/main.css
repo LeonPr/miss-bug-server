@@ -109,33 +109,33 @@ nav a:hover {
 }
 
 .bug-filter {
-    background-color: #f9f9f9; /* Light background for contrast */
-    padding: 20px; /* Add padding */
-    border-radius: 8px; /* Round corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-    margin: 20px 0; /* Space above and below */
+    background-color: #f9f9f9; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    margin: 20px 0; 
     display: flex;
-    flex-direction: column; /* Stack inputs vertically */
-    align-items: center; /* Center items */
+    flex-direction: column; 
+    align-items: center; 
 }
 
 .bug-filter input,
 .bug-filter select {
-    width: 80%; /* Make inputs full width */
-    padding: 10px; /* Add padding for comfort */
-    margin: 10px 0; /* Space between inputs */
-    border: 1px solid #ccc; /* Light border */
-    border-radius: 4px; /* Round corners */
-    font-size: 16px; /* Adjust font size */
+    width: 80%; 
+    padding: 10px; 
+    margin: 10px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 16px; 
 }
 
 .bug-filter input:focus,
 .bug-filter select:focus {
-    border-color: #4a90e2; /* Change border color on focus */
-    outline: none; /* Remove default outline */
+    border-color: #4a90e2; 
+    outline: none; 
 }
 
 .bug-sort {
-    width: 80%; /* Make the label full width */
-    text-align: left; /* Align text to the left */
+    width: 80%;
+    text-align: left; 
 }
