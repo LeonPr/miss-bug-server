@@ -10,12 +10,13 @@ app.use(express.json())
 
 
 app.get('/api/bug', (req, res) => {
-    console.log('Received request:', req.query)
-    const {txt="",txtLabels="",sortBy=""} =req.query
+    // console.log('Received request:', req.query)
+    const {txt="",txtLabels="",sortBy="",pageIdx=0} =req.query
     const filterBy={
         txt,
         txtLabels,
-        sortBy
+        sortBy,
+        pageIdx
     }
     bugService.query(filterBy)
         .then(bugs => res.send(bugs))

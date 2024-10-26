@@ -10,7 +10,7 @@ const { useState, useEffect, useRef } = React
 
 export function BugIndex() {
     const [bugs, setBugs] = useState([])
-    const [filterBy, setFilterBy] = useState({ txt: '' })
+    const [filterBy, setFilterBy] = useState({ txt: '', pageIdx: 0 })
     const [filterByLabels, setFilterByLabels] = useState({ txtLabels: '' })
     const [sortBy, setSortBy] = useState('date')
 
@@ -29,7 +29,7 @@ export function BugIndex() {
         debouncedFilterByRef.current = utilService.debounce((value) => {
             setFilterBy({ txt: value });
         }, 500);
-        
+
         // Create the debounced function for filterByLabels
         debouncedFilterByLabelsRef.current = utilService.debounce((value) => {
             setFilterByLabels({ txtLabels: value });
@@ -102,6 +102,15 @@ export function BugIndex() {
         // setFilterByLabels({ txtLabels: target.value })
     }
 
+    function onChangePage(diff) {
+        setFilterBy(prevFilter => {
+            let nextPageIdx = prevFilter.pageIdx + diff
+            if (nextPageIdx < 0) nextPageIdx = 0
+
+            return { ...prevFilter, pageIdx: nextPageIdx }
+        })
+    }
+
     return (
         <main>
             <section className='bug-filter'>
@@ -123,6 +132,11 @@ export function BugIndex() {
                         <option value="createdAt">Date</option>
                     </select>
                 </label>
+                <section className="page-section">Page:
+                    <button onClick={() => onChangePage(-1)}>-</button>
+                    {filterBy.pageIdx + 1 }
+                    <button onClick={() => onChangePage(1)}>+</button>
+                </section>
             </section>
             <section className='info-actions'>
                 <h3>Bugs App</h3>

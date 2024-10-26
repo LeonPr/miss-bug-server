@@ -2,6 +2,7 @@ import fs from 'fs'
 import { utilService } from './util.service.js'
 
 const bugs = utilService.readJsonFile('data/bug.json')
+const PAGE_SIZE = 2
 
 export const bugService = {
     query,
@@ -13,7 +14,7 @@ export const bugService = {
 function query(filterBy) {
     return Promise.resolve(bugs).then(res => {
         let data = res
-        console.log('filterBy', filterBy);
+        // console.log('filterBy', filterBy);
         if (filterBy.txt) {
             data = data.filter(bug => bug.title.toLowerCase().includes(filterBy.txt) || bug.description.toLowerCase().includes(filterBy.txt))
         }
@@ -21,6 +22,10 @@ function query(filterBy) {
             data = data.filter(bug =>
                 bug.labels.some(label => label.toLowerCase().includes(filterBy.txtLabels))
             )
+        }
+        if (+filterBy.pageIdx !== -1) {
+            const startIdx = +filterBy.pageIdx * PAGE_SIZE 
+            data = data.slice(startIdx, startIdx + PAGE_SIZE)
         }
         if (filterBy.sortBy) {
             if (filterBy.sortBy === 'date') {

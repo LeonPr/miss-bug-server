@@ -139,3 +139,31 @@ nav a:hover {
     width: 80%;
     text-align: left; 
 }
+
+.page-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    font-size: 1.2em;
+}
+
+.page-section button {
+    background-color: lightskyblue;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.page-section button:hover {
+    background-color: deepskyblue;
+}
+
+.page-section span {
+    margin: 0 10px;
+    font-weight: bold;
+    color: #333;
+}
