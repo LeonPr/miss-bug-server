@@ -12,10 +12,10 @@ export function BugIndex() {
 
     useEffect(() => {
         loadBugs()
-    }, [filterBy,filterByLabels, sortBy])
+    }, [filterBy, filterByLabels, sortBy])
 
     function loadBugs() {
-        bugService.query(filterBy,filterByLabels, sortBy).then(setBugs)
+        bugService.query(filterBy, filterByLabels, sortBy).then(setBugs)
     }
 
     function onRemoveBug(bugId) {
