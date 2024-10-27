@@ -1,86 +1,114 @@
 [
     {
-        "_id": "G0053",
-        "title": "Brown recluse",
-        "description": "While the brown recluse is not known to be aggressive, their bites can become swollen, red and last for about three weeks",
-        "severity": 1,
-        "createdAt": 1542107359454,
-        "labels": [
-            "not aggressive",
-            "venom",
-            "spider"
-        ]
-    },
-    {
-        "_id": "C0FF33",
-        "title": "Bullet ants",
-        "description": "The bullet ant is known to have the most painful sting of any insect",
+        "title": "Tsetse Fly56",
+        "description": "When bitten by the Sub-Saharan nations' tsetse fly, a parasite carried by this insect travels into the human body5",
         "severity": 4,
-        "createdAt": 1542107359454,
-        "labels": [
-            "painful sting",
-            "venom",
-            "ant"
-        ]
-    },
-    {
-        "_id": "C0FF53",
-        "title": "Deer tick",
-        "description": "This tiny insect can carry Lyme disease, and once infected, a person can exhibit symptoms such as a rash and fever",
-        "severity": 3,
-        "createdAt": 1542107359454,
+        "createdAt": 1717588495,
         "labels": [
             "transmitting disease",
             "need blood to survive",
-            "tick"
-        ]
+            "Fly"
+        ],
+        "_id": "odRMa",
+        "creator": {
+            "_id": "u101",
+            "fullname": "James Smith"
+        }
+    },
+    {
+        "title": "Tsetse Fly5",
+        "description": "When bitten by the Sub-Saharan nations' tsetse fly, a parasite carried by this insect travels into the human body5",
+        "severity": 4,
+        "createdAt": 1718020495,
+        "labels": [
+            "transmitting disease",
+            "need blood to survive",
+            "Fly"
+        ],
+        "_id": "JGXzT",
+        "creator": {
+            "_id": "u101",
+            "fullname": "James Smith"
+        }
     },
     {
         "_id": "1NF1N1T3",
         "title": "Kissing Bug",
         "description": "This bug is found widespread in the Americas and can carry Chagas Disease",
         "severity": 4,
-        "createdAt": 1542107359454,
+        "createdAt": 1718020495,
         "labels": [
             "transmitting disease",
             "need blood to survive",
             "Bug"
-        ]
+        ],
+        "creator": {
+            "_id": "6iykr",
+            "fullname": "Robert Brown"
+        }
     },
     {
         "_id": "K3YB0RD",
         "title": "Tsetse Fly",
         "description": "When bitten by the Sub-Saharan nations' tsetse fly, a parasite carried by this insect travels into the human body",
         "severity": 5,
-        "createdAt": 1542107359454,
-        "labels": [
-            "transmitting disease",
-            "need blood to survive",
-            "Fly"
-        ]
-    },
-    {
-        "title": "Tsetse Fly5",
-        "description": "When bitten by the Sub-Saharan nations' tsetse fly, a parasite carried by this insect travels into the human body5",
-        "severity": 4,
-        "createdAt": 1542107359454,
+        "createdAt": 1728820495,
         "labels": [
             "transmitting disease",
             "need blood to survive",
             "Fly"
         ],
-        "_id": "JGXzT"
+        "creator": {
+            "_id": "u101",
+            "fullname": "James Smith"
+        }
     },
     {
-        "title": "Tsetse Fly56",
-        "description": "When bitten by the Sub-Saharan nations' tsetse fly, a parasite carried by this insect travels into the human body5",
-        "severity": 4,
-        "createdAt": 1542107359454,
+        "_id": "C0FF33",
+        "title": "Bullet ants",
+        "description": "The bullet ant is known to have the most painful sting of any insect",
+        "severity": 2,
+        "createdAt": 1726833295,
+        "labels": [
+            "painful sting",
+            "venom",
+            "ant"
+        ],
+        "creator": {
+            "_id": "6RyQp",
+            "fullname": "David Miller"
+        }
+    },
+    {
+        "_id": "G0053",
+        "title": "Brown recluse",
+        "description": "While the brown recluse is not known to be aggressive, their bites can become swollen, red and last for about three weeks",
+        "severity": 1,
+        "createdAt": 1704714895,
+        "labels": [
+            "not aggressive",
+            "venom",
+            "spider"
+        ],
+        "creator": {
+            "_id": "qLEdY",
+            "fullname": "Gabriel Rodriguez"
+        }
+    },
+    {
+        "_id": "C0FF53",
+        "title": "Deer tick",
+        "description": "This tiny insect can carry Lyme disease, and once infected, a person can exhibit symptoms such as a rash and fever",
+        "severity": 3,
+        "createdAt": 1719316495,
         "labels": [
             "transmitting disease",
             "need blood to survive",
-            "Fly"
+            "tick"
         ],
-        "_id": "odRMa"
+        "creator": {
+            "_id": "tUZPy",
+            "fullname": "Bruce Thomas"
+        }
     }
 ]

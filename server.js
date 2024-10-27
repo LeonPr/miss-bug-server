@@ -1,16 +1,15 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import { bugService } from './services/bug.service.js'
+import { userService } from './services/user.service.js'
+
 
 const app = express()
-// app.get('/', (req, res) => res.send('Hello there'))
 app.use(express.static('public'))
 app.use(cookieParser())
 app.use(express.json())
-
-
+//!bugs server
 app.get('/api/bug', (req, res) => {
-    // console.log('Received request:', req.query)
     const {txt="",txtLabels="",sortBy="",pageIdx=0} =req.query
     const filterBy={
         txt,
@@ -89,6 +88,108 @@ app.delete('/api/bug/:bugId', (req, res) => {
             loggerService.error('Cannot remove bug', err)
             res.status(400).send('Cannot remove bug')
         })
+})
+
+//!user server
+
+app.get('/api/user', (req, res) => {
+    const {fullname="",score=0} =req.query
+    const filterBy={
+        fullname,
+        score,
+    }
+    userService.query(filterBy)
+        .then(users => res.send(users))
+        .catch(err => {
+            loggerService.error('Cannot get users', err)
+            res.status(500).send('Cannot get users')
+        })
+})
+
+app.post('/api/user', (req, res) => {
+    const userToSave = {
+        username: req.body.username,
+        fullname: req.body.fullname,
+        password: req.body.password,
+        score: +req.body.score,
+    }
+    userService.save(userToSave)
+        .then(savedUser => res.send(savedUser))
+        .catch(err => {
+            loggerService.error('Cannot save user', err)
+            res.status(500).send('Cannot save user')
+        })
+})
+
+app.put('/api/user', (req, res) => {
+    console.log('req.body._id', req.body._id)
+    const bugToSave = {
+        _id: req.body._id,
+        username: req.body.username,
+        fullname: req.body.fullname,
+        password: req.body.password,
+        score: +req.body.score,
+    }
+    userService.save(userToSave)
+        .then(savedUser => res.send(savedUser))
+        .catch(err => {
+            loggerService.error('Cannot save user', err)
+            res.status(500).send('Cannot save user')
+        })
+})
+
+app.get('/api/user/:userId', (req, res) => {
+    const { userId } = req.params
+    userService.getById(userId)
+        .then(user => res.send(user))
+        .catch(err => {
+            loggerService.error('Cannot get user', err)
+            res.status(500).send('Cannot get user')
+        })
+})
+app.delete('/api/user/:userId', (req, res) => {
+    const userId = req.params.userId
+    userService.remove(userId)
+        .then(() => res.send(userId))
+        .catch(err => {
+            loggerService.error('Cannot remove user', err)
+            res.status(400).send('Cannot remove user')
+        })
+})
+//* Auth API
+app.post('/api/auth/login', (req, res) => {
+    const credentials = req.body
+    
+    userService.checkLogin(credentials)
+        .then(user => {
+            if (user) {
+                const loginToken = userService.getLoginToken(user)
+                res.cookie('loginToken', loginToken)
+                res.send(user)
+            } else {
+                res.status(401).send('Invalid Credentials')
+            }
+        })
+})
+
+app.post('/api/auth/signup', (req, res) => {
+    const credentials = req.body
+    
+    userService.save(credentials)
+        .then(user => {
+            if (user) {
+                const loginToken = userService.getLoginToken(user)
+                res.cookie('loginToken', loginToken)
+                res.send(user)
+            } else {
+                res.status(400).send('Cannot signup')
+            }
+        })
+})
+
+app.post('/api/auth/logout', (req, res) => {
+    res.clearCookie('loginToken')
+    res.send('logged-out!')
 })
 
 app.listen(3040, () => console.log('Server ready at port 3040'))
