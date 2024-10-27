@@ -1,5 +1,12 @@
 [
     {
+        "username": "Lucas",
+        "fullname": "Lucas Carter",
+        "password": "l1020",
+        "score": 0,
+        "_id": "5hlPk"
+    },
+    {
         "_id": "u101",
         "username": "James",
         "fullname": "James Smith",

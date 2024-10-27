@@ -11,6 +11,7 @@ export const userService = {
     getById,
     remove,
     save,
+
     checkLogin,
 	getLoginToken,
 	validateToken,
@@ -47,7 +48,7 @@ function remove(userId) {
 }
 
 function save(userToSave) {
-    console.log('userToSave', userToSave);
+    console.log('userToSave', userToSave)
     if (userToSave._id) {
         const userIdx = users.findIndex(user => user._id === userToSave._id)
         users[userIdx] = userToSave

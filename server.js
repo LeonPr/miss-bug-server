@@ -159,7 +159,7 @@ app.delete('/api/user/:userId', (req, res) => {
 //* Auth API
 app.post('/api/auth/login', (req, res) => {
     const credentials = req.body
-
+    console.log('credentials', credentials);
     userService.checkLogin(credentials)
         .then(user => {
             if (user) {
@@ -173,9 +173,14 @@ app.post('/api/auth/login', (req, res) => {
 })
 
 app.post('/api/auth/signup', (req, res) => {
-    const credentials = req.body
-    
-    userService.save(credentials)
+    // const credentials = req.body
+    const userToSave = {
+        username: req.body.username,
+        fullname: req.body.fullname,
+        password: req.body.password,
+        score: +req.body.score,
+    }    
+    userService.save(userToSave)
         .then(user => {
             if (user) {
                 const loginToken = userService.getLoginToken(user)
