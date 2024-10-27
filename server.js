@@ -41,7 +41,7 @@ app.post('/api/bug', (req, res) => {
         })
 })
 app.put('/api/bug', (req, res) => {
-    console.log('req.body._id', req.body._id)
+    // console.log('req.body._id', req.body._id)
     const bugToSave = {
         _id: req.body._id,
         title: req.body.title,
@@ -122,8 +122,8 @@ app.post('/api/user', (req, res) => {
 })
 
 app.put('/api/user', (req, res) => {
-    console.log('req.body._id', req.body._id)
-    const bugToSave = {
+    // console.log('req.body._id', req.body._id)
+    const userToSave = {
         _id: req.body._id,
         username: req.body.username,
         fullname: req.body.fullname,
@@ -159,7 +159,7 @@ app.delete('/api/user/:userId', (req, res) => {
 //* Auth API
 app.post('/api/auth/login', (req, res) => {
     const credentials = req.body
-    
+
     userService.checkLogin(credentials)
         .then(user => {
             if (user) {

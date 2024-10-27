@@ -25,10 +25,10 @@ function query(filterBy) {
         if (filterBy.score) {
             data = data.filter(user => user.score === filterBy.score)
         }
-        if (+filterBy.pageIdx !== -1) {
-            const startIdx = +filterBy.pageIdx * PAGE_SIZE
-            data = data.slice(startIdx, startIdx + PAGE_SIZE)
-        }
+        // if (+filterBy.pageIdx !== -1) {
+        //     const startIdx = +filterBy.pageIdx * PAGE_SIZE
+        //     data = data.slice(startIdx, startIdx + PAGE_SIZE)
+        // }
         return data
     })
 }
@@ -47,6 +47,7 @@ function remove(userId) {
 }
 
 function save(userToSave) {
+    console.log('userToSave', userToSave);
     if (userToSave._id) {
         const userIdx = users.findIndex(user => user._id === userToSave._id)
         users[userIdx] = userToSave
@@ -89,7 +90,7 @@ function validateToken(token) {
 function _saveUsersToFile() {
     return new Promise((resolve, reject) => {
         const data = JSON.stringify(users, null, 4)
-        fs.writeFile('data/bug.json', data, (err) => {
+        fs.writeFile('data/user.json', data, (err) => {
             if (err) {
                 return reject(err)
             }
